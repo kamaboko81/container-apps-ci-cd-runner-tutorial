@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y curl jq unzip && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
+    apt-get install -y nodejs && \
+    apt-get install -y openssl
 
 COPY github-actions-runner/entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
