@@ -1,20 +1,30 @@
 FROM ghcr.io/actions/actions-runner:2.304.0
-# for latest release, see https://github.com/actions/runner/releases
+# For the latest release, see https://github.com/actions/runner/releases
 
+# Switch to root user for installation tasks
 USER root
 
-# install curl and jq
-RUN apt-get update && apt-get install -y curl jq unzip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
+# Install dependencies and tools in a single layer
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    jq \
+    unzip \
+    nodejs \
+    openssl \
+    software-properties-common && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    apt-get install -y openssl
+    apt-add-repository --yes --update ppa:ansible/ansible && \
+    apt-get install -y --no-install-recommends ansible && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY github-actions-runner/entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
+# Copy and set up the entrypoint script
+COPY github-actions-runner/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
+# Switch back to runner user
 USER runner
 
-ENTRYPOINT ["./entrypoint.sh"]
+# Set entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
