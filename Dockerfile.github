@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
     nodejs \
     openssl \
+    python3-pip \
     software-properties-common && \
+    pip3 install ansible && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-add-repository --yes --update ppa:ansible/ansible && \
-    apt-get install -y --no-install-recommends ansible && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
