@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     jq \
     unzip \
-    software-properties-common && \
+    software-properties-common \
+    python3-pip && \
     pip3 install ansible pywinrm && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
