@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     file \
     sshpass && \
     pip3 install ansible pywinrm && \
+    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.58.0-45-ge8085bae3 && \
+    curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
     curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
     apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
