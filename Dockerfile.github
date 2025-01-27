@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     file \
     sshpass \
-    iputils-ping && \
+    netcat && \
     pip3 install ansible pywinrm && \
     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin latest && \
     curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash && \
